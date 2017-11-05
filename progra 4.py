@@ -39,35 +39,33 @@ class MapaPips:
         #aqui va todo el codigo de backtracking :)
         listaPos = self.mapa_bones.siguientesPares() 
         while(listaPos != []):
-            #if(not self.mapa_bones.hayCeros()):
-            #    self.mapa_bones.imprimir()
-            #    self.soluciones +=1
-            #    return True
-            #else:
-            x1 = listaPos[0][0][0]
-            y1 = listaPos[0][0][1]
-            x2 = listaPos[0][1][0]
-            y2 = listaPos[0][1][1]
-            
-            bone = listaBones.buscarBone(self.matriz[x1][y1],self.matriz[x2][y2])
-            if(bone != None):
-                if(not bone.ID in self.mapa_bones.utilizados):
-                    self.mapa_bones.utilizados.append(bone.ID)
-                    self.mapa_bones.matriz[x1][y1] = bone.ID
-                    self.mapa_bones.matriz[x2][y2] = bone.ID 
-                    self.mapa_bones.imprimir()
-                    print()
-                    solu = self.resolverMapa()
-                    if(solu):
-                        return True
+            if(not self.mapa_bones.hayCeros()):
+                self.mapa_bones.imprimir()
+                self.soluciones +=1
+                return True
+            else:
+                x1 = listaPos[0][0][0]
+                y1 = listaPos[0][0][1]
+                x2 = listaPos[0][1][0]
+                y2 = listaPos[0][1][1]
+                
+                bone = listaBones.buscarBone(self.matriz[x1][y1],self.matriz[x2][y2])
+                if(bone != None):
+                    if(not bone.ID in self.mapa_bones.utilizados):
+                        self.mapa_bones.utilizados.append(bone.ID)
+                        self.mapa_bones.matriz[x1][y1] = bone.ID
+                        self.mapa_bones.matriz[x2][y2] = bone.ID
+                        solu = self.resolverMapa()
+                        if(solu):
+                            return True
+                        else:
+                            del listaPos[0]
+                            self.mapa_bones.utilizados.remove(bone.ID)
+                            self.mapa_bones.matriz[x1][y1] = 0
+                            self.mapa_bones.matriz[x2][y2] = 0
                     else:
                         del listaPos[0]
-                        self.mapa_bones.utilizados.remove(bone.ID)
-                        self.mapa_bones.matriz[x1][y1] = 0
-                        self.mapa_bones.matriz[x2][y2] = 0
-                else:
-                    del listaPos[0]
-        
+            
         return False
     
 class MapaBones:
@@ -101,7 +99,7 @@ class MapaBones:
 
     def hayCeros(self):
         for i in range (7):
-            for i in range (8):
+            for j in range (8):
                 if self.matriz[i][j] == 0:
                     return True
         return False
@@ -142,4 +140,3 @@ mapa_pips = MapaPips(matriz)
 listaMapasPips.insertarMapa(mapa_pips)
 
 mapa_pips.resolverMapa()
-
