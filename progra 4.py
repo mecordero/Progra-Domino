@@ -28,11 +28,33 @@ class ListaMapasPips:
     def insertarMapa(self, mapa):
         self.lista_mapas.append(mapa)
 
+    def resolverLista(self):
+        for i in range(len(self.lista_mapas)):
+            print("Conjunto #", end = "")
+            print(i+1, end = "")
+            print(":")
+            self.lista_mapas[i].imprimir()
+            print("Mapas resultantes del conjunto #", end = "")
+            print(i+1, end = "")
+            print(".")
+            self.lista_mapas[i].resolverMapa()
+            print ("Hay", self.lista_mapas[i].soluciones, "solución(es) para el conjunto #", end = "")
+            print (i+1, end = "")
+            print (".")
+            print()
+
 class MapaPips:
     def __init__(self, matriz):
         self.matriz = matriz
         self.mapa_bones = MapaBones()
         self.soluciones = 0
+
+    def imprimir(self):
+        for i in range (len(self.matriz)):
+            for j in range (len(self.matriz[0])):
+                print(self.matriz[i][j], end = " ")
+            print()
+        print()
 
     def resolverMapa(self):
         global listaBones
@@ -42,7 +64,6 @@ class MapaPips:
             if(not self.mapa_bones.hayCeros()):
                 self.mapa_bones.imprimir()
                 self.soluciones +=1
-                print()
                 return False
             else:
                 x1 = listaPos[0][0][0]
@@ -114,6 +135,7 @@ class MapaBones:
                 else:
                     print("",self.matriz[i][j], end = " ")
             print()
+        print()
 
 #crea e inserta los bones
 listaBones = ListaBones()
@@ -129,6 +151,22 @@ for i in range (7):#pip1
 listaMapasPips = ListaMapasPips()
 
 #crea un mapa pips
+
+
+
+matriz = [ [5, 4, 3, 6, 5, 3, 4, 6],
+           [0, 6, 0, 1, 2, 3, 1, 1],
+           [3, 2, 6, 5, 0, 4, 2, 0],
+           [5, 3, 6, 2, 3, 2, 0, 6],
+           [4, 0, 4, 1, 0, 0, 4, 1],
+           [5, 2, 2, 4, 4, 1, 6, 5],
+           [5, 5, 3, 6, 1, 2, 3, 1] ]
+
+
+mapa_pips = MapaPips(matriz)
+
+listaMapasPips.insertarMapa(mapa_pips)
+
 matriz = [ [4, 2, 5, 2, 6, 3, 5, 4],
            [5, 0, 4, 3, 1, 4, 1, 1],
            [1, 2, 3, 0, 2, 2, 2, 2],
@@ -141,6 +179,5 @@ mapa_pips = MapaPips(matriz)
 
 listaMapasPips.insertarMapa(mapa_pips)
 
-print("Mapas resultantes del conjunto #n:\n")
-mapa_pips.resolverMapa()
-print("Hay", mapa_pips.soluciones,"soluciones para el conjunto #n")
+listaMapasPips.resolverLista()
+
