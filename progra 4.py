@@ -42,7 +42,8 @@ class MapaPips:
             if(not self.mapa_bones.hayCeros()):
                 self.mapa_bones.imprimir()
                 self.soluciones +=1
-                return True
+                print()
+                return False
             else:
                 x1 = listaPos[0][0][0]
                 y1 = listaPos[0][0][1]
@@ -67,6 +68,7 @@ class MapaPips:
                         del listaPos[0]
             
         return False
+
     
 class MapaBones:
     def __init__(self):
@@ -139,4 +141,6 @@ mapa_pips = MapaPips(matriz)
 
 listaMapasPips.insertarMapa(mapa_pips)
 
+print("Mapas resultantes del conjunto #n:\n")
 mapa_pips.resolverMapa()
+print("Hay", mapa_pips.soluciones,"soluciones para el conjunto #n")
